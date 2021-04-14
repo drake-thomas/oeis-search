@@ -1,5 +1,5 @@
 # oeis-search
-This is a script to perform complex searches on the OEIS database. 
+This is a script to perform complex searches on the OEIS database. When run, it will prompt you to enter a search (see the Syntax section below), and will display any sequences that match the search (capped at 10 by default, but this can be altered in the code easily). 
 
 # Instructions
 
@@ -28,4 +28,7 @@ Some progressively more complicated searches, and the conditions they impose on 
 * `_, (!prime & >1)*`: All terms after the first are composite.
 
 The parser supports nested parentheses, if you want to use more complex logic.
+
+This syntax allows for computationally costly queries (things with a lot of question marks especially), so some searches may take a while to complete, but for most normal use cases, a search should terminate in under 10 seconds at most, and usually within a second. The `prime` keyword defaults to the Miller-Rabin probabilistic primality test for inputs over 100 million.
+
 
