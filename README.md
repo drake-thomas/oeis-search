@@ -19,7 +19,7 @@ Some progressively more complicated searches, and the conditions they impose on 
 * `1, 2, 3, (4 | prime)`: Fourth term is either 4 or a prime.
 * `1, 1, 2, 5, 10-15, >, >=,`: Fifth term is between 10 and 15 inclusive, the sixth term is strictly greater than the fifth, and the seventh term is greater than or equal to the sixth. 
 * `2, 4, 2, prime*`: All terms after the third term are prime.
-* `3%4, 5%7, (3%5 & <=)*`: First term is congruent to 3 mod 4, second term is congruent to 5 mod 7, third term is congruent to 3 mod 5 and is less than or equal to the previous term.
+* `3%4, 5%7, (3%5 & <=)*`: First term is congruent to 3 mod 4, second term is congruent to 5 mod 7, all subsequent terms are congruent to 3 mod 5 and less than or equal to the previous term.
 * `3*, 5, 7*`: Sequence consists of some nonnegative number of 3s, followed by a 5, followed by some nonnegative number of 7s. 
 * `*, 10, 3, 4`: Sequence contains the terms 10, 3, 4 in order consecutively, but not necessarily at the start. 
 * `*, 10, *, 3, *, 4`: Sequence contains the terms 10, 3, 4 in order, but not necessarily consecutively.
