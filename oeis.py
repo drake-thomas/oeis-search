@@ -101,16 +101,9 @@ def prime(n,prob=-1):
         elif (p*p>n):
             return True
     return millerRabin(n,prob)
-#end book imports
 
-#experimental rich printing from 
-#https://www.willmcgugan.com/blog/tech/post/real-working-hyperlinks-in-the-terminal-with-rich/
-#and
-#https://github.com/willmcgugan/rich
-#didn't work in my terminal, so avoided for now
 
-#import rich
-#from rich import print as rich_print
+#end auxiliary functions
 
 names=['']+codecs.open("names.txt",encoding='utf-8').read().split('\n')[4:]
 
@@ -124,6 +117,7 @@ def qint(l):
             nl+=[int(l[i])]
     return nl
 A=[[]]+[qint(e.split(',')) for e in A[4:]]
+#A is now a list of sequences, with A[i] the terms of sequence i (and A{0] the empty list)
 
 def paren_split(s):
     bits=[]
