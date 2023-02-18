@@ -5,6 +5,9 @@ import sys
 import math
 import random
 
+#print this first since the rest of the code takes nonzero time to run
+print("Enter a search:")
+
 def sieve(n):
     """
     Taken from
@@ -39,10 +42,6 @@ def modpow(a,e,n):
         current %= n
     return prod
 
-initialCertainty=1 #Value to get approximation for Bayesian probability a
-#number given by Miller-Rabin is prime
-for p in primes:
-        initialCertainty*=1+1/p
 def v(n,d):
     """Maximum e such that d^e divides n."""
     if n<1 or d<2:
@@ -52,28 +51,19 @@ def v(n,d):
         n//=d
         count+=1
     return count
-def millerRabin(n,prob=-1,checked=-1):
-    global initialCertainty
+
+def millerRabin(n,prob=-1):
     """Probabilistic primality test. Defaults to 99.999% Bayesian expectation
-    with priors given by PNT but can be set higher with prob.
-    You may include an optional array of primes which are known
-    not to divide the integer (defaults to the primes <10000
-    for the sake of the standard prime)."""
+    with priors given by PNT but can be set higher with prob."""
     if prob==-1:
         prob=0.99999
-    if checked != -1:
-        initialCertainty=1
-        for p in checked:
-            initialCertainty*=1+1/p
-    desired=1/(1-prob)
-    certainty=1/math.log(n)
-    certainty/=1-certainty
-    certainty*=initialCertainty
+    certainty = (1-1/math.log(n))/math.log(n) #initial belief
+    desired=prob/(1-prob) #target odds ratio
     
     s=v(n-1,2)
     d=(n-1)//2**s
     count=0
-    while certainty<desired or count<10:
+    while certainty<desired or count<10: #require that we check at least ten primes
         a=random.randint(1,n-1)
         k=modpow(a,d,n)
         if k != 1:
@@ -86,6 +76,7 @@ def millerRabin(n,prob=-1,checked=-1):
         certainty*=4
         count+=1
     return True
+
 def prime(n,prob=-1):
     """Deterministic up to 100,000,000,
     uses Miller-Rabin afterwards to Bayesian probability of at least prob.
@@ -101,9 +92,16 @@ def prime(n,prob=-1):
         elif (p*p>n):
             return True
     return millerRabin(n,prob)
+#end book imports
 
+#experimental rich printing from 
+#https://www.willmcgugan.com/blog/tech/post/real-working-hyperlinks-in-the-terminal-with-rich/
+#and
+#https://github.com/willmcgugan/rich
+#didn't work in my terminal, so avoided for now
 
-#end auxiliary functions
+#import rich
+#from rich import print as rich_print
 
 names=['']+codecs.open("names.txt",encoding='utf-8').read().split('\n')[4:]
 
@@ -117,7 +115,6 @@ def qint(l):
             nl+=[int(l[i])]
     return nl
 A=[[]]+[qint(e.split(',')) for e in A[4:]]
-#A is now a list of sequences, with A[i] the terms of sequence i (and A{0] the empty list)
 
 def paren_split(s):
     bits=[]
@@ -328,7 +325,7 @@ def search(s,l=[],show=5):
                 print(a)
     if len(valid_indices)>show:
         extras = len(valid_indices)-show
-        print("%d more result%s not shown." % (extras,['s',''][extras == 1]))
+        print(f"{extras} more {['results','result'][extras == 1]} not shown.")
     elif valid_indices==[]:
         print("No compatible results found.")
     else:
