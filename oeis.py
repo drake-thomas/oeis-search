@@ -335,4 +335,7 @@ def search(s,l=[],show=5):
 ipt=''
 while len(ipt)==0 or ipt[0]!='q':
     ipt=input()
+    if ipt[0] == 'q':
+        print("Quitting...")
+        break
     r=search(ipt,show=10)
