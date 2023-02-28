@@ -4,7 +4,8 @@ This is a script to perform complex searches on the OEIS database. When run, it 
 # Instructions
 
 * Download each of the two compressed files given [here](https://oeis.org/wiki/Welcome#Compressed_Versions) at the OEIS.
-* Decompress the files, which should have default filenames of `names.txt` and `stripped.txt`.
+* Decompress the files, which should have default filenames of `names` and `stripped`.
+* Rename these files to `names.txt` and `stripped.txt` respectively.
 * Put these two files in the same folder as the `oeis.py` file.
 * Run `oeis.py`, at which point you will be prompted to enter a search. 
 
